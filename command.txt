@@ -1,0 +1,5 @@
+minikube status
+kubectl get pods
+kubectl delete pods
+kubectl logs
+kubectl describe pods
