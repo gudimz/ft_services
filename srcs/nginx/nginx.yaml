@@ -1,11 +1,37 @@
 apiVersion: v1
-kind: Pod
+kind: Service
 metadata:
-  name: nginx
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
   labels:
     app: nginx
 spec:
-  containers:
-  - name: nginx
-    image: nginx_image
-    imagePullPolicy: Never
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx_image
+        #disable the ability to download an image from the docker hub
+        imagePullPolicy: Never
+        #open the port at the pod
+        ports:
+        - containerPort: 80

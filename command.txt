@@ -3,3 +3,5 @@ kubectl get pods
 kubectl delete pods
 kubectl logs
 kubectl describe pods
+kubectl get svc
+kubectl get deploy
