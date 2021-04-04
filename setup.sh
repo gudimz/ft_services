@@ -1,3 +1,4 @@
+#!/bin/zsh
 #Delete old minikube
 minikube delete
 
@@ -9,7 +10,7 @@ eval $(minikube docker-env)
 
 #MetalLB
 minikube addons enable metallb
-kubectl apply -f ./srcs/metallb.yaml
+kubectl apply -f ./srcs/metallb/metallb.yaml
 
 #nginx
 docker build -t nginx_image ./srcs/nginx
