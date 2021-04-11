@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+  annotations:
+      metallb.universe.tf/allow-shared-ip: ft_services
+spec:
+  selector:
+    app: wordpress
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5050
+      targetPort: 5050
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deploy
+  labels:
+    app: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress_image
+        #disable the ability to download an image from the docker hub
+        imagePullPolicy: Never
+        #open the port at the pod
+        ports:
+        - containerPort: 5050
