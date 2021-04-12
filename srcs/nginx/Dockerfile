@@ -13,10 +13,10 @@ COPY srcs/nginx.conf /etc/nginx/conf.d/default.conf
 COPY srcs/supervisor.conf /etc/supervisord.conf
 
 #create folder for nginx
-RUN mkdir -p /run/nginx
+RUN mkdir -p /run/nginx && chmod 777 /run/nginx
 
 #create folder for html
-RUN mkdir -p /www
+RUN mkdir -p /www && chmod 777 /www
 
 #standart index.html
 COPY srcs/index.html /www/index.html

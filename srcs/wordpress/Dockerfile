@@ -12,13 +12,13 @@ RUN apk add openssl unzip nginx supervisor \
 COPY srcs/supervisor.conf /etc/supervisord.conf
 
 #create folder for nginx
-RUN mkdir -p /run/nginx
+RUN mkdir -p /run/nginx && chmod 777 /run/nginx
 
 #config for nginx
 COPY srcs/nginx.conf /etc/nginx/conf.d/default.conf
 
 #create folder for wordpress
-RUN mkdir -p /www
+RUN mkdir -p /www && chmod 777 /www
 
 #download and setup wordpress
 ADD https://wordpress.org/latest.tar.gz .

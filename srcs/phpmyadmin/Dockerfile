@@ -12,13 +12,13 @@ RUN apk add openssl unzip nginx supervisor \
 COPY srcs/supervisor.conf /etc/supervisord.conf
 
 #create folder for nginx
-RUN mkdir -p /run/nginx
+RUN mkdir -p /run/nginx && chmod 777 /run/nginx
 
 #config for nginx
 COPY srcs/nginx.conf /etc/nginx/conf.d/default.conf
 
 #create folder for phpmyadmin
-RUN mkdir -p /www
+RUN mkdir -p /www && chmod 777 /www
 
 #download and setup phpmyadmin
 ADD https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.zip .

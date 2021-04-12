@@ -10,21 +10,27 @@ eval $(minikube docker-env)
 
 #MetalLB
 minikube addons enable metallb
-kubectl apply -f ./srcs/yamls/metallb.yaml
+kubectl apply -f ./srcs/yamls/MetalLB.yaml
 
 #nginx
-echo -e "\e[32mStarting NGINX... \e[0m"
-docker build -t nginx_image ./srcs/nginx
-kubectl apply -f ./srcs/yamls/nginx.yaml
+echo -e "\e[32mStarting Nginx... \e[0m"
+docker build -t nginx_image ./srcs/Nginx
+kubectl apply -f ./srcs/yamls/Nginx.yaml
 
 #wordpress
-echo -e "\e[32mStarting WORDPRESS... \e[0m"
-docker build -t wordpress_image ./srcs/wordpress
-kubectl apply -f ./srcs/yamls/wordpress.yaml
+echo -e "\e[32mStarting WordPress... \e[0m"
+docker build -t wordpress_image ./srcs/WordPress
+kubectl apply -f ./srcs/yamls/WordPress.yaml
 
 #phpmyadmin
-echo -e "\e[32mStarting PHPMYADMIN... \e[0m"
-docker build -t phpmyadmin_image ./srcs/phpmyadmin
-kubectl apply -f ./srcs/yamls/phpmyadmin.yaml
+echo -e "\e[32mStarting PhpMyAdmin... \e[0m"
+docker build -t phpmyadmin_image ./srcs/PhpMyAdmin
+kubectl apply -f ./srcs/yamls/PhpMyAdmin.yaml
+
+#mySQL
+#echo -e "\e[32mStarting MySQL... \e[0m"
+#docker build -t mysql_image ./srcs/MySQL
+#kubectl apply -f ./srcs/yamls/MySQL.yaml
+
 
 minikube dashboard
