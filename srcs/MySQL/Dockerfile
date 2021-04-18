@@ -4,16 +4,18 @@ FROM alpine:3.12
 RUN apk update && apk upgrade
 
 #download utils and packages
-RUN apk add mysql mysql-client supervisor
+RUN apk add mysql mysql-client supervisor openrc libc6-compat
 
 #config for supervisor
 COPY srcs/supervisor.conf /etc/supervisord.conf
 
-#create folder for mysql
-RUN mkdir -p /var/lib/mysql
+COPY srcs/my.cnf /etc/my.cnf
+COPY srcs/init.sh ./init.sh
+COPY srcs/database.sql ./database.sql
+RUN chmod 777 ./init.sh && sh ./init.sh
 
 
 #open ports
-EXPOSE 5050
+EXPOSE 3306
 
 ENTRYPOINT usr/bin/supervisord -c /etc/supervisord.conf

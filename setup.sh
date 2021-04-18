@@ -27,10 +27,10 @@ echo -e "\e[32mStarting PhpMyAdmin... \e[0m"
 docker build -t phpmyadmin_image ./srcs/PhpMyAdmin
 kubectl apply -f ./srcs/yamls/PhpMyAdmin.yaml
 
-#mySQL
-#echo -e "\e[32mStarting MySQL... \e[0m"
-#docker build -t mysql_image ./srcs/MySQL
-#kubectl apply -f ./srcs/yamls/MySQL.yaml
+mySQL
+echo -e "\e[32mStarting MySQL... \e[0m"
+docker build -t mysql_image ./srcs/MySQL
+kubectl apply -f ./srcs/yamls/MySQL.yaml
 
 
 minikube dashboard
