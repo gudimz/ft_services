@@ -26,6 +26,13 @@ RUN unzip phpMyAdmin-5.0.4-all-languages.zip && rm -rf phpMyAdmin-5.0.4-all-lang
 RUN mv phpMyAdmin-5.0.4-all-languages /www/phpmyadmin
 COPY ./srcs/config.inc.php /www/phpmyadmin/config.inc.php
 
+#download and setup telegraf
+ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.17.0_linux_amd64.tar.gz .
+RUN tar -xvzf telegraf-1.17.0_linux_amd64.tar.gz \
+	&& mv telegraf-1.17.0 telegraf \
+	&& rm -rf telegraf-1.17.0_linux_amd64.tar.gz
+COPY srcs/telegraf.conf etc/telegraf/telegraf.conf
+
 #open ports
 EXPOSE 5000
 

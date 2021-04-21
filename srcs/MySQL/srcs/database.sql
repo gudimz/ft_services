@@ -1,4 +1,4 @@
 CREATE DATABASE wordpress;
-CREATE USER 'agigi'@'localhost' IDENTIFIED BY '123';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'agigi'@'localhost';
+CREATE USER 'agigi'@'%' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'agigi'@'%';
 FLUSH PRIVILEGES;

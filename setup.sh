@@ -27,10 +27,26 @@ echo -e "\e[32mStarting PhpMyAdmin... \e[0m"
 docker build -t phpmyadmin_image ./srcs/PhpMyAdmin
 kubectl apply -f ./srcs/yamls/PhpMyAdmin.yaml
 
-mySQL
+#mySQL
 echo -e "\e[32mStarting MySQL... \e[0m"
 docker build -t mysql_image ./srcs/MySQL
 kubectl apply -f ./srcs/yamls/MySQL.yaml
 
+#FTPS
+echo -e "\e[32mStarting FTPS... \e[0m"
+docker build -t ftps_image ./srcs/FTPS
+kubectl apply -f ./srcs/yamls/FTPS.yaml
+
+#Grafana
+echo -e "\e[32mStarting Grafana... \e[0m"
+docker build -t grafana_image ./srcs/Grafana
+kubectl apply -f ./srcs/yamls/Grafana.yaml
+
+#InfluxDB
+echo -e "\e[32mStarting InfluxDB... \e[0m"
+docker build -t influxdb_image ./srcs/InfluxDB
+kubectl apply -f ./srcs/yamls/InfluxDB.yaml
+
+kubectl get pods
 
 minikube dashboard

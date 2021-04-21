@@ -1,9 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-mysql
+  name: pvc-ftps
   labels:
-    app: mysql
+    app: ftps
+  namespace: default
+  labels:
+    app: ftps
 spec:
   accessModes:
   - ReadWriteOnce
@@ -14,47 +17,47 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-service
+  name: ftps-service
   labels:
-    app: mysql
+    app: ftps
+  annotations:
+      metallb.universe.tf/allow-shared-ip: ft_services
 spec:
   selector:
-    app: mysql
-  type: ClusterIP
+    app: ftps
+  type: LoadBalancer
   ports:
-    - name: port-mysql
+    - name: port-ftps
       protocol: TCP
-      port: 3306
-      targetPort: 3306
+      port: 21
+      targetPort: 21
+    - name: port-ftps-data
+      protocol: TCP
+      port: 50000
+      targetPort: 50000
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deploy
+  name: ftps-deploy
   labels:
-    app: mysql
+    app: ftps
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: ftps
   template:
     metadata:
       labels:
-        app: mysql
+        app: ftps
     spec:
       containers:
-      - name: mysql
-        image: mysql_image
+      - name: ftps
+        image: ftps_image
         #disable the ability to download an image from the docker hub
         imagePullPolicy: Never
         #open the port at the pod
         ports:
-        - containerPort: 3306
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: pvc-mysql
+        - containerPort: 21
+        - containerPort: 50000

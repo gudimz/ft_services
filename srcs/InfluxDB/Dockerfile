@@ -4,17 +4,10 @@ FROM alpine:3.12
 RUN apk update && apk upgrade
 
 #download utils and packages
-RUN apk add mysql mysql-client openrc supervisor libc6-compat
-
-COPY srcs/my.cnf /etc/my.cnf
-COPY srcs/start.sh ./start.sh
-COPY srcs/database.sql ./database.sql
-COPY srcs/wordpress.sql ./wordpress.sql
+RUN apk add influxdb supervisor libc6-compat
 
 #config for supervisor
 COPY srcs/supervisor.conf /etc/supervisord.conf
-
-RUN chmod 777 ./start.sh
 
 #download and setup telegraf
 ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.17.0_linux_amd64.tar.gz .
@@ -24,6 +17,6 @@ RUN tar -xvzf telegraf-1.17.0_linux_amd64.tar.gz \
 COPY srcs/telegraf.conf etc/telegraf/telegraf.conf
 
 #open ports
-EXPOSE 3306
+EXPOSE 8086
 
-ENTRYPOINT ["sh", "/start.sh" ]
+ENTRYPOINT usr/bin/supervisord -c /etc/supervisord.conf
