@@ -47,6 +47,6 @@ echo -e "\e[32mStarting InfluxDB... \e[0m"
 docker build -t influxdb_image ./srcs/InfluxDB
 kubectl apply -f ./srcs/yamls/InfluxDB.yaml
 
-kubectl get pods
+kubectl get services
 
 minikube dashboard
