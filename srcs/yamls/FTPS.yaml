@@ -1,20 +1,4 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-ftps
-  labels:
-    app: ftps
-  namespace: default
-  labels:
-    app: ftps
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
----
-apiVersion: v1
 kind: Service
 metadata:
   name: ftps-service
