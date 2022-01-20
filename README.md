@@ -1,4 +1,4 @@
-# ft_services.
+# ft_services. Project for school 21 (ecole 42)
 -------------
 
 ### Introduction.
